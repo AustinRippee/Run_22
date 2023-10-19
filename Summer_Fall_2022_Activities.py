@@ -47,276 +47,167 @@ run_22['Date'] = pd.to_datetime(run_22['Date'])
 run_22['Date_Formatted'] = run_22['Date'].dt.strftime('%Y/%m/%d')
 
 #======================================================================================
+
+def add_date(monthnumber):
+    start_day = pd.to_datetime(f'2022-{monthnumber:02d}-01')
+    
+    # Assuming run_22 is defined somewhere in your code
+    while start_day not in run_22['Date'].values:
+        start_day += pd.Timedelta(days=1)
+    
+    return start_day
+
+def remove_date(monthnumber):
+    
+    daynumber = 0
+    
+    end_day = pd.to_datetime(f'2022-{monthnumber:02d}-{daynumber:02d}')
+    
+    while end_day not in run_22['Date'].values:
+        end_day -= pd.Timedelta(days=1)
+    else:
+        if monthnumber == 4 or 6 or 9 or 11:
+            daynumber = 30
+        elif monthnumber == 1 or 3 or 5 or 7 or 8 or 10 or 12:
+            daynumber = 31
+        else:
+            daynumber = 28
+        
+        end_day = pd.to_datetime(f'2022-{monthnumber:02d}-{daynumber:02d}')
+    
+    return end_day
+
+#======================================================================================
 #           May Mileage
 #======================================================================================
 
-def add_date(may_start_day):
-    may_start_day = pd.to_datetime('2022-05-01')
-    
-    while may_start_day not in run_22['Date'].values:
-        may_start_day += pd.Timedelta(days=1)
-    
-    return may_start_day
+# monthnumber = 5
 
-def remove_date(may_end_day):
-    may_end_day = pd.to_datetime('2022-05-31')
-    
-    while may_end_day not in run_22['Date'].values:
-        may_end_day -= pd.Timedelta(days=1)
-    
-    return may_end_day
+# start_date = add_date(monthnumber)
 
-start_date = pd.to_datetime('2022-05-01')
+# print(start_date)
 
-new_start_date = add_date(start_date)
+# end_date = remove_date(monthnumber)
 
-end_date = pd.to_datetime('2022-05-31')
+# end_date = remove_date(monthnumber)
 
-new_end_date = remove_date(end_date)
+# may_activities = run_22[['Date_Formatted', 'Title', 'Distance', 'Time', 'Avg Pace']].loc[(run_22['Date'] >= start_date) & (run_22['Date'] <= end_date)]
 
-may_activities = run_22[['Date_Formatted', 'Title', 'Distance', 'Time', 'Avg Pace']].loc[(run_22['Date'] >= new_start_date) & (run_22['Date'] <= new_end_date)]
+# may_mileage = may_activities['Distance'].sum().round(2)
 
-may_mileage = may_activities['Distance'].sum().round(2)
+# print("May Mileage:", may_mileage, "miles (~", (may_mileage / 1).round(2), "miles per day)")
 
-print("May Mileage:", may_mileage, "miles (~", (may_mileage / 1).round(2), "miles per day)")
+# #======================================================================================
+# #           June Mileage
+# #======================================================================================
 
-#======================================================================================
-#           June Mileage
-#======================================================================================
+# monthnumber = 6
 
-def add_date(jun_start_day):
-    jun_start_day = pd.to_datetime('2022-06-01')
-    
-    while jun_start_day not in run_22['Date'].values:
-        jun_start_day += pd.Timedelta(days=1)
-    
-    return jun_start_day
+# start_date = add_date(monthnumber)
 
-def remove_date(jun_end_day):
-    jun_end_day = pd.to_datetime('2022-06-30')
-    
-    while jun_end_day not in run_22['Date'].values:
-        jun_end_day -= pd.Timedelta(days=1)
-    
-    return jun_end_day
+# end_date = remove_date(monthnumber)
 
-start_date = pd.to_datetime('2022-06-01')
+# jun_activities = run_22[['Date_Formatted', 'Title', 'Distance', 'Time', 'Avg Pace']].loc[(run_22['Date'] >= start_date) & (run_22['Date'] <= end_date)]
 
-new_start_date = add_date(start_date)
+# jun_mileage = jun_activities['Distance'].sum().round(2)
 
-end_date = pd.to_datetime('2022-06-30')
+# print("June Mileage:", jun_mileage, "miles (~", (jun_mileage / 30).round(2), "miles per day)")
 
-new_end_date = remove_date(end_date)
+# #======================================================================================
+# #           July Mileage
+# #======================================================================================
 
-jun_activities = run_22[['Date_Formatted', 'Title', 'Distance', 'Time', 'Avg Pace']].loc[(run_22['Date'] >= new_start_date) & (run_22['Date'] <= new_end_date)]
+# monthnumber = 7
 
-jun_mileage = jun_activities['Distance'].sum().round(2)
+# start_date = add_date(monthnumber)
 
-print("June Mileage:", jun_mileage, "miles (~", (jun_mileage / 30).round(2), "miles per day)")
+# end_date = remove_date(monthnumber)
 
-#======================================================================================
-#           July Mileage
-#======================================================================================
+# jul_activities = run_22[['Date_Formatted', 'Title', 'Distance', 'Time', 'Avg Pace']].loc[(run_22['Date'] >= start_date) & (run_22['Date'] <= end_date)]
 
-def add_date(jul_start_day):
-    jul_start_day = pd.to_datetime('2022-07-01')
-    
-    while jul_start_day not in run_22['Date'].values:
-        jul_start_day += pd.Timedelta(days=1)
-    
-    return jul_start_day
+# jul_mileage = jul_activities['Distance'].sum().round(2)
 
-def remove_date(jul_end_day):
-    jul_end_day = pd.to_datetime('2022-07-31')
-    
-    while jul_end_day not in run_22['Date'].values:
-        jul_end_day -= pd.Timedelta(days=1)
-    
-    return jul_end_day
+# print("July Mileage:", jul_mileage, "miles (~", (jul_mileage / 31).round(2), "miles per day)")
 
-start_date = pd.to_datetime('2022-07-01')
+# #======================================================================================
+# #           August Mileage
+# #======================================================================================
 
-new_start_date = add_date(start_date)
+# monthnumber = 8
 
-end_date = pd.to_datetime('2022-07-31')
+# start_date = add_date(monthnumber)
 
-new_end_date = remove_date(end_date)
+# end_date = remove_date(monthnumber)
 
-jul_activities = run_22[['Date_Formatted', 'Title', 'Distance', 'Time', 'Avg Pace']].loc[(run_22['Date'] >= new_start_date) & (run_22['Date'] <= new_end_date)]
+# aug_activities = run_22[['Date_Formatted', 'Title', 'Distance', 'Time', 'Avg Pace']].loc[(run_22['Date'] >= start_date) & (run_22['Date'] <= end_date)]
 
-jul_mileage = jul_activities['Distance'].sum().round(2)
+# aug_mileage = aug_activities['Distance'].sum().round(2)
 
-print("July Mileage:", jul_mileage, "miles (~", (jul_mileage / 31).round(2), "miles per day)")
+# print("August Mileage:", aug_mileage, "miles (~", (aug_mileage / 31).round(2), "miles per day)")
 
-#======================================================================================
-#           August Mileage
-#======================================================================================
+# #======================================================================================
+# #           September Mileage
+# #======================================================================================
 
-def add_date(aug_start_day):
-    aug_start_day = pd.to_datetime('2022-08-01')
-    
-    while aug_start_day not in run_22['Date'].values:
-        aug_start_day += pd.Timedelta(days=1)
-    
-    return aug_start_day
+# monthnumber = 9
 
-def remove_date(aug_end_day):
-    aug_end_day = pd.to_datetime('2022-08-31')
-    
-    while aug_end_day not in run_22['Date'].values:
-        aug_end_day -= pd.Timedelta(days=1)
-    
-    return aug_end_day
+# start_date = add_date(monthnumber)
 
-start_date = pd.to_datetime('2022-08-01')
+# end_date = remove_date(monthnumber)
 
-new_start_date = add_date(start_date)
+# sep_activities = run_22[['Date_Formatted', 'Title', 'Distance', 'Time', 'Avg Pace']].loc[(run_22['Date'] >= start_date) & (run_22['Date'] <= end_date)]
 
-end_date = pd.to_datetime('2022-08-31')
+# sep_mileage = sep_activities['Distance'].sum().round(2)
 
-new_end_date = remove_date(end_date)
+# print("September Mileage:", sep_mileage, "miles (~", (sep_mileage / 30).round(2), "miles per day)")
 
-aug_activities = run_22[['Date_Formatted', 'Title', 'Distance', 'Time', 'Avg Pace']].loc[(run_22['Date'] >= new_start_date) & (run_22['Date'] <= new_end_date)]
+# #======================================================================================
+# #           October Mileage
+# #======================================================================================
 
-aug_mileage = aug_activities['Distance'].sum().round(2)
+# monthnumber = 10
 
-print("August Mileage:", aug_mileage, "miles (~", (aug_mileage / 31).round(2), "miles per day)")
+# start_date = add_date(monthnumber)
 
-#======================================================================================
-#           September Mileage
-#======================================================================================
+# end_date = remove_date(monthnumber)
 
-def add_date(sep_start_day):
-    sep_start_day = pd.to_datetime('2022-09-01')
-    
-    while sep_start_day not in run_22['Date'].values:
-        sep_start_day += pd.Timedelta(days=1)
-    
-    return sep_start_day
+# oct_activities = run_22[['Date_Formatted', 'Title', 'Distance', 'Time', 'Avg Pace']].loc[(run_22['Date'] >= start_date) & (run_22['Date'] <= end_date)]
 
-def remove_date(sep_end_day):
-    sep_end_day = pd.to_datetime('2022-09-30')
-    
-    while sep_end_day not in run_22['Date'].values:
-        sep_end_day -= pd.Timedelta(days=1)
-    
-    return sep_end_day
+# oct_mileage = oct_activities['Distance'].sum().round(2)
 
-start_date = pd.to_datetime('2022-09-01')
+# print("October Mileage:", oct_mileage, "miles (~", (oct_mileage / 31).round(2), "miles per day)")
 
-new_start_date = add_date(start_date)
+# #======================================================================================
+# #           November Mileage
+# #======================================================================================
 
-end_date = pd.to_datetime('2022-09-30')
+# monthnumber = 11
 
-new_end_date = remove_date(end_date)
+# start_date = add_date(monthnumber)
 
-sep_activities = run_22[['Date_Formatted', 'Title', 'Distance', 'Time', 'Avg Pace']].loc[(run_22['Date'] >= new_start_date) & (run_22['Date'] <= new_end_date)]
+# end_date = remove_date(monthnumber)
 
-sep_mileage = sep_activities['Distance'].sum().round(2)
+# nov_activities = run_22[['Date_Formatted', 'Title', 'Distance', 'Time', 'Avg Pace']].loc[(run_22['Date'] >= start_date) & (run_22['Date'] <= end_date)]
 
-print("September Mileage:", sep_mileage, "miles (~", (sep_mileage / 30).round(2), "miles per day)")
+# nov_mileage = nov_activities['Distance'].sum().round(2)
 
-#======================================================================================
-#           October Mileage
-#======================================================================================
+# print("November Mileage:", nov_mileage, "miles (~", (nov_mileage / 30).round(2), "miles per day)")
 
-def add_date(oct_start_day):
-    oct_start_day = pd.to_datetime('2022-10-01')
-    
-    while oct_start_day not in run_22['Date'].values:
-        oct_start_day += pd.Timedelta(days=1)
-    
-    return oct_start_day
+# #======================================================================================
+# #           December Mileage
+# #======================================================================================
 
-def remove_date(oct_end_day):
-    oct_end_day = pd.to_datetime('2022-10-31')
-    
-    while oct_end_day not in run_22['Date'].values:
-        oct_end_day -= pd.Timedelta(days=1)
-    
-    return oct_end_day
+# monthnumber = 12
 
-start_date = pd.to_datetime('2022-10-01')
+# start_date = add_date(monthnumber)
 
-new_start_date = add_date(start_date)
+# end_date = remove_date(monthnumber)
 
-end_date = pd.to_datetime('2022-10-31')
+# dec_activities = run_22[['Date_Formatted', 'Title', 'Distance', 'Time', 'Avg Pace']].loc[(run_22['Date'] >= start_date) & (run_22['Date'] <= end_date)]
 
-new_end_date = remove_date(end_date)
+# dec_mileage = dec_activities['Distance'].sum().round(2)
 
-oct_activities = run_22[['Date_Formatted', 'Title', 'Distance', 'Time', 'Avg Pace']].loc[(run_22['Date'] >= new_start_date) & (run_22['Date'] <= new_end_date)]
-
-oct_mileage = oct_activities['Distance'].sum().round(2)
-
-print("October Mileage:", oct_mileage, "miles (~", (oct_mileage / 31).round(2), "miles per day)")
-
-#======================================================================================
-#           November Mileage
-#======================================================================================
-
-def add_date(nov_start_day):
-    nov_start_day = pd.to_datetime('2022-11-01')
-    
-    while nov_start_day not in run_22['Date'].values:
-        nov_start_day += pd.Timedelta(days=1)
-    
-    return nov_start_day
-
-def remove_date(nov_end_day):
-    nov_end_day = pd.to_datetime('2022-11-30')
-    
-    while nov_end_day not in run_22['Date'].values:
-        nov_end_day -= pd.Timedelta(days=1)
-    
-    return nov_end_day
-
-start_date = pd.to_datetime('2022-11-01')
-
-new_start_date = add_date(start_date)
-
-end_date = pd.to_datetime('2022-11-30')
-
-new_end_date = remove_date(end_date)
-
-nov_activities = run_22[['Date_Formatted', 'Title', 'Distance', 'Time', 'Avg Pace']].loc[(run_22['Date'] >= new_start_date) & (run_22['Date'] <= new_end_date)]
-
-nov_mileage = nov_activities['Distance'].sum().round(2)
-
-print("November Mileage:", nov_mileage, "miles (~", (nov_mileage / 30).round(2), "miles per day)")
-
-#======================================================================================
-#           December Mileage
-#======================================================================================
-
-def add_date(dec_start_day):
-    dec_start_day = pd.to_datetime('2022-12-01')
-    
-    while dec_start_day not in run_22['Date'].values:
-        dec_start_day += pd.Timedelta(days=1)
-    
-    return dec_start_day
-
-def remove_date(dec_end_day):
-    dec_end_day = pd.to_datetime('2022-12-31')
-    
-    while dec_end_day not in run_22['Date'].values:
-        dec_end_day -= pd.Timedelta(days=1)
-    
-    return dec_end_day
-
-start_date = pd.to_datetime('2022-12-01')
-
-new_start_date = add_date(start_date)
-
-end_date = pd.to_datetime('2022-12-31')
-
-new_end_date = remove_date(end_date)
-
-dec_activities = run_22[['Date_Formatted', 'Title', 'Distance', 'Time', 'Avg Pace']].loc[(run_22['Date'] >= new_start_date) & (run_22['Date'] <= new_end_date)]
-
-dec_mileage = dec_activities['Distance'].sum().round(2)
-
-print("December Mileage:", dec_mileage, "miles (~", (dec_mileage / 31).round(2), "miles per day)")
+# print("December Mileage:", dec_mileage, "miles (~", (dec_mileage / 31).round(2), "miles per day)")
 
 #======================================================================================
 
@@ -328,13 +219,13 @@ print("Total Mileage from Run_22:", total_mileage, "miles")
 
 print()
 
-avg_mileage_day = total_mileage / run_22['Distance'].count().round(2)
+avg_mileage_day = total_mileage / run_22['Distance'].count().round(1)
 
-print("Average Mileage Per Day:", avg_mileage_day, "miles")
+print("Average Mileage Per Day:", avg_mileage_day.round(2), "miles")
 
 print()
 
-mileage_highest = run_22[['Date', 'Title', 'Distance', 'Time', 'Avg Pace']].loc[run_22["Activity Type"] == 'Running'].sort_values(by=['Distance'], ascending=[False]).head(25)
+mileage_highest = run_22[['Date', 'Title', 'Distance', 'Time', 'Avg Pace']].loc[run_22["Activity Type"] == 'Running'].round(1).sort_values(by=['Distance', 'Date'], ascending=[False, True]).head(25)
 
 print("Top 25 Highest Mileage Days:")
 print(mileage_highest)
